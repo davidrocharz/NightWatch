@@ -18,42 +18,63 @@ var nightlyTasks = [
 ]
 
 var weeklyTasks = [
-    "Check all windows",
-    "Check all doors",
-    "Check that the safe is locked",
-    "Check that the mailbox is empty"
+    "Check inside all vacant rooms",
+    "Walk the perimeter of property"
 ]
 
 var monthlyTasks = [
-    "Check all windows",
-    "Check all doors"
+    "Test security alarm",
+    "Test motion detectors",
+    "Test smoke alarms"
 ]
 
 struct ContentView: View {
     var body: some View {
-        List {
-            Section(header: HStack(alignment: .bottom) {Image(systemName: "moon.stars")
-                Text("Nightly Tasks")
-            }.font(.title).foregroundColor(.yellow).fontWeight(.heavy)) {
-                ForEach(nightlyTasks, id: \.self) { task in
-                    Text(task)
+        NavigationView {
+            List {
+                // MARK: Nightly Tasks
+                Section(header: TaskSectionHeader(systemIcon: "moon.stars", title: "Nightly Tasks")) {
+                    ForEach(nightlyTasks, id: \.self) {
+                        task in
+                        NavigationLink(destination: DetailsView(taskName: task)) {
+                            Text(task)
+                        }
+                    }
+                }
+                // MARK: Weekly Tasks
+                Section(header: TaskSectionHeader(systemIcon: "sunset", title: "Weekly Tasks")) {
+                    ForEach(weeklyTasks, id: \.self) {
+                        task in
+                        NavigationLink(destination: DetailsView(taskName: task)) {
+                            Text(task)
+                        }
+                    }
+                }
+                // MARK: Monthly Tasks
+                Section(header: TaskSectionHeader(systemIcon: "calendar", title: "Monthly Tasks")) {
+                    ForEach(monthlyTasks, id: \.self) {
+                        task in
+                        NavigationLink(destination: DetailsView(taskName: task)) {
+                            Text(task)
+                        }
+                    }
                 }
             }
-            Section(header: HStack(alignment: .bottom) {Image(systemName: "sunset")
-                Text("Weekly Tasks")
-            }.font(.title).foregroundColor(.yellow).fontWeight(.heavy)) {
-                ForEach(weeklyTasks, id: \.self) { task in
-                    Text(task)
-                }
-            }
-            Section(header: HStack(alignment: .bottom) {Image(systemName: "calendar")
-                Text("Monthly Tasks")
-            }.font(.title).foregroundColor(.yellow).fontWeight(.heavy)) {
-                ForEach(monthlyTasks, id: \.self) { task in
-                    Text(task)
-                }
-            }
+            .listStyle(.grouped)
+            .navigationTitle("Home")
         }
+    }
+}
+
+struct TaskSectionHeader: View {
+    let systemIcon: String
+    let title: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: systemIcon)
+            Text(title)
+        }.font(.title).foregroundColor(.yellow).fontWeight(.heavy)
     }
 }
 
