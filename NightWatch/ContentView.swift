@@ -10,12 +10,67 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            HStack {
+                VStack(alignment: .leading) {
+                    // MARK: Nightly Tasks
+                    Group {
+                        HStack {
+                            Text(Image(systemName: "moon.stars"))
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.yellow)
+                            Text("Nightly Tasks")
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.yellow)
+                                .textCase(.uppercase)
+                                .padding(.top)
+                        }
+                        Text("- Check all windows")
+                        Text("- Check all doors")
+                        Text("- Check that the safe is locked")
+                        Text("- Check that the mailbox is empty")
+                        Text("- Check security cameras")
+                        Text("- Clear ice from sidewalks")
+                        Text("- Document \"strange and unusual occurances\"")
+                    }
+                    Divider()
+                    // MARK: Weekly Tasks
+                    Group {
+                        HStack {
+                            Text(Image(systemName: "sunset"))
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.yellow)
+                            Text("Weekly Tasks")
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.yellow)
+                                .textCase(.uppercase)
+                                .padding(.top)
+                        }
+                    }
+                    Divider()
+                    // MARK: Monthly Tasks
+                    Group {
+                        HStack {
+                            Text(Image(systemName: "calendar"))
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.yellow)
+                            Text("Monthly Tasks")
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.yellow)
+                                .textCase(.uppercase)
+                                .padding(.top)
+                        }
+                    }
+                }.padding([.top, .leading])
+                Spacer()
+            }
         }
-        .padding()
+        Spacer()
     }
 }
 
