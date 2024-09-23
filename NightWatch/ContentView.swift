@@ -11,6 +11,8 @@ struct ContentView: View {
     @ObservedObject var nightWatchTasks: NightWatchTasks
     @State private var focusModeOn = false
     @State var editMode: EditMode = .inactive
+    @State var resetAlertShowing: Bool = false
+    let resetAlertMessage: String = "Are you sure?"
     
     var body: some View {
         NavigationView {
@@ -82,9 +84,17 @@ struct ContentView: View {
                     })
                 }
             }
+            // MARK: Toolbar
             .toolbar {
                 ToolbarItem(placement: .topBarLeading, content: {
                     EditButton()
+                })
+                ToolbarItem(placement: .topBarTrailing, content: {
+                    Button(role: .destructive, action: {
+                        resetAlertShowing = true
+                    }, label: {
+                        Text("Reset").foregroundStyle(.red)
+                    })
                 })
                 ToolbarItemGroup(placement: .bottomBar) {
                     Spacer()
@@ -95,6 +105,22 @@ struct ContentView: View {
             .environment(\.editMode, $editMode)
             .listStyle(.grouped)
             .navigationTitle("Home")
+            .alert(
+                "Reset Tasks",
+                isPresented: $resetAlertShowing,
+                presenting: resetAlertMessage
+            ) {_ in
+                Button(role: .destructive) {
+                    let refreshedTasks = NightWatchTasks()
+                    self.nightWatchTasks.nightlyTasks = refreshedTasks.nightlyTasks
+                    self.nightWatchTasks.weeklyTasks = refreshedTasks.weeklyTasks
+                    self.nightWatchTasks.monthlyTasks = refreshedTasks.monthlyTasks
+                } label: {
+                    Text("Confirm")
+                }
+            } message: { _ in
+                Text("Are you sure?")
+            }
         }
     }
 }
