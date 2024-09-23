@@ -7,13 +7,19 @@
 import SwiftUI
 
 struct DetailsView: View {
-    let taskName: String
+    @Binding var task: Task
     
     var body: some View {
         VStack {
-            Text(taskName)
+            Text(task.name)
             Text("Placeholder description")
-            Text("Placeholder mark complete button")
+            Button("Mark Complete") {
+                task.isCompleted = true
+            }
         }
     }
+}
+
+#Preview {
+    DetailsView(task: Binding<Task>.constant(Task(name: "Test Task", isCompleted: false, lastCompleted: nil)))
 }
