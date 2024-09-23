@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var nightWatchTasks: NightWatchTasks
     @State private var focusModeOn = false
+    @State var editMode: EditMode = .inactive
     
     var body: some View {
         NavigationView {
@@ -91,6 +92,7 @@ struct ContentView: View {
                     Spacer()
                 }
             }
+            .environment(\.editMode, $editMode)
             .listStyle(.grouped)
             .navigationTitle("Home")
         }
