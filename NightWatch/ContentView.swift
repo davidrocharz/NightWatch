@@ -38,6 +38,7 @@ struct ContentView: View {
                     .onMove(perform: { indices, newOffset in
                         nightWatchTasks.nightlyTasks.move(fromOffsets: indices, toOffset: newOffset)
                     })
+                    .transition(.slide)
                 }
                 // MARK: Weekly Tasks
                 Section(header: TaskSectionHeader(systemIcon: "sunset", title: "Weekly Tasks")) {
@@ -60,6 +61,7 @@ struct ContentView: View {
                     .onMove(perform: { indices, newOffset in
                         nightWatchTasks.weeklyTasks.move(fromOffsets: indices, toOffset: newOffset)
                     })
+                    .transition(.slide)
                 }
                 // MARK: Monthly Tasks
                 Section(header: TaskSectionHeader(systemIcon: "calendar", title: "Monthly Tasks")) {
@@ -82,6 +84,7 @@ struct ContentView: View {
                     .onMove(perform: { indices, newOffset in
                         nightWatchTasks.monthlyTasks.move(fromOffsets: indices, toOffset: newOffset)
                     })
+                    .transition(.slide)
                 }
             }
             // MARK: Toolbar
@@ -98,7 +101,9 @@ struct ContentView: View {
                 })
                 ToolbarItemGroup(placement: .bottomBar) {
                     Spacer()
-                    Toggle("Focus Mode", isOn: $focusModeOn).toggleStyle(.switch)
+                    withAnimation {
+                        Toggle("Focus Mode", isOn: $focusModeOn.animation()).toggleStyle(.switch)
+                    }
                     Spacer()
                 }
             }
